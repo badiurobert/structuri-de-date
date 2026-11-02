@@ -1,0 +1,29 @@
+function removeElement(nums, val) {
+  let k = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== val) {
+      nums[k] = nums[i];
+      k++;
+    }
+  }
+
+  return k;
+}
+
+const tests = [
+  { nums: [3, 2, 2, 3], val: 3, expected: [2, 2] },
+  { nums: [0, 1, 2, 2, 3, 0, 4, 2], val: 2, expected: [0, 0, 1, 3, 4] },
+];
+
+tests.forEach(({ nums, val, expected }, i) => {
+  const input = [...nums];
+  const k = removeElement(nums, val);
+  const firstK = nums.slice(0, k).sort((a, b) => a - b);
+  const passed = k === expected.length && JSON.stringify(firstK) === JSON.stringify(expected);
+  console.log(
+    `Example ${i + 1}: nums=[${input}] val=${val} k=${k} nums=[${nums.slice(0, k)}] ${passed ? "PASS" : "FAIL"}`
+  );
+});
+
+module.exports = removeElement;
